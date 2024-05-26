@@ -3,10 +3,11 @@ import axios from "axios";
 
 const VehicleList = () => {
   const [vehicles, setVehicles] = useState([]);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
+  apiUrl;
   useEffect(() => {
     axios
-      .get("/vehicles")
+      .get(`${apiUrl}/vehicles`)
       .then((response) => setVehicles(response.data))
       .catch((error) => console.error("Error fetching vehicles:", error));
   }, []);

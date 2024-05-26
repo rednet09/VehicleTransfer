@@ -7,6 +7,7 @@ const AddDriver = () => {
     phone_number: "",
     profile_photo: "",
   });
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,7 +17,7 @@ const AddDriver = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/drivers", formData)
+      .post(`${apiUrl}/drivers`, formData)
       .then((response) => {
         alert("Driver added successfully");
         setFormData({ name: "", phone_number: "", profile_photo: "" });

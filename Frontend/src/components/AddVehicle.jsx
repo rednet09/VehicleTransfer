@@ -8,6 +8,7 @@ const AddVehicle = () => {
     PUC_certificate: "",
     insurance_certificate: "",
   });
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,7 +18,7 @@ const AddVehicle = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/vehicles", formData)
+      .post(`${apiUrl}/vehicles`, formData)
       .then((response) => {
         alert("Vehicle added successfully");
         setFormData({

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Transfer = () => {
@@ -7,16 +7,17 @@ const Transfer = () => {
     from_driver_id: "",
     to_driver_id: "",
   });
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [drivers, setDrivers] = useState([]);
   const [vehicles, setVehicles] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/drivers")
+      .get(`${apiUrl}/drivers`)
       .then((response) => setDrivers(response.data))
       .catch((error) => console.error("Error fetching drivers:", error));
     axios
-      .get("/vehicles")
+      .get(`${apiUrl}/vehicles`)
       .then((response) => setVehicles(response.data))
       .catch((error) => console.error("Error fetching vehicles:", error));
   }, []);
@@ -29,7 +30,7 @@ const Transfer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/transfers", formData)
+      .post(`${apiUrl}/transfers`, formData)
       .then((response) => {
         alert("Vehicle transferred successfully");
         setFormData({
@@ -60,7 +61,7 @@ const Transfer = () => {
         <label>
           From Driver:
           <select name="from_driver_id" onChange={handleChange}>
-            {drivers.map((driver) => (
+            {drivers?.map((driver) => (
               <option key={driver.id} value={driver.id}>
                 {driver.name}
               </option>
@@ -70,7 +71,7 @@ const Transfer = () => {
         <label>
           To Driver:
           <select name="to_driver_id" onChange={handleChange}>
-            {drivers.map((driver) => (
+            {drivers?.map((driver) => (
               <option key={driver.id} value={driver.id}>
                 {driver.name}
               </option>

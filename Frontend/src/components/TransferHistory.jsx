@@ -3,10 +3,11 @@ import axios from "axios";
 
 const TransferHistory = () => {
   const [transfers, setTransfers] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     axios
-      .get("/transfers")
+      .get(`${apiUrl}/transfers`)
       .then((response) => setTransfers(response.data))
       .catch((error) =>
         console.error("Error fetching transfer history:", error)
